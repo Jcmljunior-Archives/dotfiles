@@ -5,10 +5,17 @@ case $- in
 esac
 
 declare -- PATH && {
-  PATH="$PATH"    
-  [ -d "~/.local/share/bin" ] && {
-    PATH="$PATH:~/.local/share/bin"
-  }
+
+    PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/opt/bin:/usr/lib/llvm/13/bin"
+
+    [ -d "/home/$USER/.local/share/bin" ] && {
+	PATH="$PATH:/home/$USER/.local/share/bin"
+    }
+
+    [ -d "/home/$USER/.bin" ] && {
+	PATH="$PATH:/home/$USER/.bin"
+    }
+    
 }
 
 shopt -s checkwinsize
@@ -58,8 +65,7 @@ function @extract()
   fi
 }
 
-[ -f "~/.bash_aliases" ] && \
-  . ~/.bash_aliases
+[[ -f "/home/$USER/.bash_aliases" ]] && . "/home/$USER/.bash_aliases"
 
 if ! shopt -oq posix; then
   if [ -f /usr/share/bash-completion/bash_completion ]; then
